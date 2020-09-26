@@ -1,35 +1,47 @@
 import React, { Component } from 'react'
-import CKEditor from '@ckeditor/ckeditor5-react'
-import BalloonEditor from '@ckeditor/ckeditor5-build-balloon'
+import Quill from 'quill'
+import './quill.snow.css'
 
-class Editor extends Component {
-	render() {
-		return (
-			<div className="x5_Editor">
-				<CKEditor
-					editor={ BalloonEditor }
-					data="<p>Hello ,Let's go!</p>"
-					config={{
-						balloonToolbar: [ 'bold', 'italic', 'undo', 'redo' ]
-					}}
-					onInit={ editor => {
-						// You can store the "editor" and use when it is needed.
-						console.log( 'Editor is ready to use!', editor )
-					} }
-					onChange={ ( event, editor ) => {
-						const data = editor.getData()
-						console.log( { event, editor, data } )
-					} }
-					onBlur={ ( event, editor ) => {
-						console.log( 'Blur.', editor )
-					} }
-					onFocus={ ( event, editor ) => {
-						console.log( 'Focus.', editor )
-					} }
-				/>
-			</div>
-		)
+class QuillEditor extends Component {
+	constructor(props){
+		super(props)
+		this.state={}
 	}
+    
+	componentDidMount(){
+		const toolbarOptions = [
+			['bold', 'italic', 'underline', 'strike'],        // 切换按钮
+			['blockquote', 'code-block'],
+          
+			[{ 'header': 1 }, { 'header': 2 }],               // 用户自定义按钮值
+			[{ 'list': 'ordered'}, { 'list': 'bullet' }],
+			[{ 'script': 'sub'}, { 'script': 'super' }],      // 上标/下标
+			[{ 'indent': '-1'}, { 'indent': '+1' }],          // 减少缩进/缩进
+			[{ 'direction': 'rtl' }],                         // 文本下划线
+          
+			[{ 'size': ['small', false, 'large', 'huge'] }],  // 用户自定义下拉
+			[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+          
+			[{ 'color': [] }, { 'background': [] }],          // 主题默认下拉，使用主题提供的值
+			[{ 'font': [] }],
+			[{ 'align': [] }],
+          
+			['clean']                                         // 清除格式
+		]
+          
+		// eslint-disable-next-line no-unused-vars
+		const quill = new Quill('#quill-editor', {
+			modules: {
+				toolbar: toolbarOptions
+			},
+			theme: 'snow'
+		})
+	}
+    
+	render(){
+		return <div id='quill-editor'></div>
+	}
+    
 }
 
-export default Editor
+export default QuillEditor

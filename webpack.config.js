@@ -33,13 +33,23 @@ module.exports = {
 				use: 'babel-loader',
 				exclude: /node_modules/
 			},{
-				test: /\.(sass|css)$/,
+				test: /\.sass$/,
 				loader: [
 					'style-loader', // 创建style标签，并将css添加进去
 					'css-loader', // 编译css
 					'postcss-loader', // 前缀
 					'sass-loader' // 编译sass
 				]
+			},{
+				test: /\.css$/,
+				loader: [
+					'style-loader', // 创建style标签，并将css添加进去
+					'css-loader', // 编译css
+					'postcss-loader', // 前缀
+				]
+			},{
+				test: /\.svg$/,
+				loader: 'url-loader',
 			}
 		]
 	},

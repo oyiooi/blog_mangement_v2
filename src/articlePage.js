@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Form, Breadcrumb,Input, DatePicker, Select, Row, Col, InputNumber, Button } from 'antd'
-import Editor from './component/editor/' // 编辑器
+import { Form,Card, Breadcrumb,Input, DatePicker, Select, Row, Col, InputNumber, Button } from 'antd'
+import 	QuillEditor from './component/editor/' // 编辑器
 
 const { Option } = Select
 const keywords = [
@@ -49,6 +49,8 @@ const classification = [
 		label: '框架'
 	}
 ]
+const gridStyle={width: '100%'}
+// eslint-disable-next-line no-unused-vars
 const ArticlePage = props => {
 	return <>
 		<Breadcrumb>
@@ -58,63 +60,69 @@ const ArticlePage = props => {
 			</Breadcrumb.Item>
 		</Breadcrumb>
 		<Form layout= 'horizontal'
-			colon={false}
 			style={{
 				marginTop: '20px'
 			}}>
-			
-			<Row gutter={16}>
-				<Col span={24}>
-					<Form.Item name='title' label='标题' labelCol={{span: 2,push: 6}} wrapperCol={{span: 10,push: 6}}>
-						<Input placeholder='title'></Input>             
-					</Form.Item>
-				</Col>
-				<Col span={12}>
-					<Form.Item name='author' label='作者' labelCol={{span: 4,push: 6}} wrapperCol={{span: 14,push: 6}}>
-						<Input placeholder='author'></Input>
-					</Form.Item>
-				</Col>
-				<Col span={12}>
-					<Form.Item label='日期' name='date' labelAlign='left'  labelCol={{span: 4,push: 18}} wrapperCol={{span: 14}}>
-						<DatePicker style={{width: '100%'}}></DatePicker>
-					</Form.Item>
-				</Col>
-				<Col span={12}>
-					<Form.Item label='关键词' name='keywords' labelCol={{span: 4,push: 6}} wrapperCol={{span: 14,push: 6}}>
-						<Select 
-							mode='multiple'
-							placeholder='select key words'
-							optionLabelProp='label'
-						>
-							{
-								keywords.map(item=><Option  key={item.value} value={item.value}>{item.label}</Option>)
-							}	
-						</Select>             
-					</Form.Item>
-				</Col>
-				<Col span={12}>
-					<Form.Item label='分类' name='classification' labelAlign='left' labelCol={{span: 4,push: 18}} wrapperCol={{span: 14}}>
-						<Select>
-							{
-								classification.map(item=><Option  key={item.value} value={item.value}>{item.label}</Option>)
-							}
-						</Select>                           
-					</Form.Item>
-				</Col>
-				<Col span={24}>
-					<Form.Item name='like' label='赞' labelCol={{span: 1,push: 11}} wrapperCol={{span: 1,push: 11}}>
-						<InputNumber disabled={true}></InputNumber>
-					</Form.Item>
-				</Col>				
-			</Row>
-			<Row>
-				<Col span={24}>
-					<Editor />
-				</Col>
-			</Row>
-			<Form.Item style={{textAlign: 'center'}}>
-				<Button type='primary' style={{marginBottom: '20px'}} htmlType='submit'>保存</Button>
-			</Form.Item>
+			<Card title='增加'>
+				<Card.Grid style={gridStyle}>
+					<Row gutter={16}>
+						<Col flex='300px'>
+							<Form.Item name='title' label={<div style={{width: '56px',display: 'flex',flexDirection: 'row',justifyContent:'space-around',alignItems:'center'}}><span>标</span><span>题</span></div>} >
+								<Input placeholder='title'></Input>             
+							</Form.Item>
+						</Col>
+						<Col flex='300px'>
+							<Form.Item name='author' label={<div style={{width: '56px',display: 'flex',flexDirection: 'row',justifyContent:'space-around',alignItems:'center'}}><span>作</span><span>者</span></div>}>
+								<Input placeholder='author'></Input>
+							</Form.Item>
+						</Col>
+						<Col flex='300px'>
+							<Form.Item label={<div style={{width: '56px',display: 'flex',flexDirection: 'row',justifyContent:'space-around',alignItems:'center'}}><span>日</span><span>期</span></div>} name='date' >
+								<DatePicker style={{width: '100%'}}></DatePicker>
+							</Form.Item>
+						</Col>
+						<Col flex='300px'>
+							<Form.Item label={<div style={{width: '56px',display: 'flex',flexDirection: 'row',justifyContent:'space-around',alignItems:'center'}}><span>关</span><span>键</span><span>词</span></div>} name='keywords' >
+								<Select 
+									mode='multiple'
+									placeholder='select key words'
+									optionLabelProp='label'
+								>
+									{
+										keywords.map(item=><Option  key={item.value} value={item.value}>{item.label}</Option>)
+									}	
+								</Select>             
+							</Form.Item>
+						</Col>
+						<Col flex='300px'>
+							<Form.Item label={<div style={{width: '56px',display: 'flex',flexDirection: 'row',justifyContent:'space-around',alignItems:'center'}}><span>分</span><span>类</span></div>} name='classification' >
+								<Select>
+									{
+										classification.map(item=><Option  key={item.value} value={item.value}>{item.label}</Option>)
+									}
+								</Select>                           
+							</Form.Item>
+						</Col>
+						<Col flex='300px'>
+							<Form.Item name='like' label={<div style={{width: '56px',display: 'flex',flexDirection: 'row',justifyContent:'space-around',alignItems:'center'}}><span>赞</span></div>}>
+								<InputNumber disabled={true} style={{width: '50px'}}></InputNumber>
+							</Form.Item>
+						</Col>				
+					</Row>
+				</Card.Grid>
+				<Card.Grid style={gridStyle}>
+					<Row>
+						<Col span={24}>
+							<QuillEditor />
+						</Col>
+					</Row>
+				</Card.Grid>
+				<Card.Grid style={gridStyle} hoverable={false}>		
+					<div style={{textAlign: 'center'}}>
+						<Button type='primary' htmlType='submit'>保存</Button>
+					</div>
+				</Card.Grid>	
+			</Card>
 		</Form>
 	</>
 }
