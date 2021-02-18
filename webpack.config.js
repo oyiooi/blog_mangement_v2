@@ -16,15 +16,21 @@ module.exports = {
 	devtool: 'cheap-module-eval-source-map',
 	devServer: {
 		historyApiFallback: {
-			rewrites: [ 
-				{ from: /./, to: '/index.html' }
+			rewrites: [
+				{ from: /\/mangement\/article/, to: '/index.html' }, 
+				{ from: /\/mangement\/chart/, to: '/index.html' },
 			]
 		},
+		openPage: 'mangement',
 		contentBase: './build',
 		open: true,
 		hot: true,
 		port: 7777,
-		progress: true
+		progress: true,
+		overlay: {
+			warnings: true,
+			errors: true
+		}
 	},
 	module: {
 		rules: [
@@ -58,6 +64,7 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: './template.html',
 			chunks:['index'],
+			base: '/',
 			hash:true
 		}),
 		new webpack.HotModuleReplacementPlugin()

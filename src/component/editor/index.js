@@ -6,8 +6,9 @@ class QuillEditor extends Component {
 	constructor(props){
 		super(props)
 		this.state={}
+		this.quill = null
 	}
-    
+
 	componentDidMount(){
 		const toolbarOptions = [
 			['bold', 'italic', 'underline', 'strike'],        // 切换按钮
@@ -30,7 +31,7 @@ class QuillEditor extends Component {
 		]
           
 		// eslint-disable-next-line no-unused-vars
-		const quill = new Quill('#quill-editor', {
+		this.quill = new Quill('#quill-editor', {
 			modules: {
 				toolbar: toolbarOptions
 			},

@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {createRef,useEffect,useState} from 'react'
 import { Link } from 'react-router-dom'
-import { Form,Card, Breadcrumb,Input, DatePicker, Select, Row, Col, InputNumber, Button } from 'antd'
+import { Form,Card, Breadcrumb,Input,Spin, DatePicker, Select, Row, Col, InputNumber, Button } from 'antd'
 import 	QuillEditor from './component/editor/' // 编辑器
 
 const { Option } = Select
@@ -49,17 +49,62 @@ const classification = [
 		label: '框架'
 	}
 ]
+const quillref = createRef()
+const formref = createRef()
 const gridStyle={width: '100%'}
+
 // eslint-disable-next-line no-unused-vars
 const ArticlePage = props => {
-	return <>
+	const {type} = props
+	const [spinning, setSpinning] = useState(false)
+
+	// 提交
+	const submit = ()=>{
+		const { validateFields } = formref.current
+		const { getContents } = quillref.current.quill
+		validateFields()
+			.then(values=>{
+				const text = getContents()
+				values.article = text
+				fetch('',{
+					method: type==='edit'?'POST':'PUT',
+					body: JSON.stringify(values)
+				})
+			})
+		
+	}
+
+	// componentDidMount
+	useEffect(()=>{
+		if(type==='edit'){
+			setSpinning(true)
+			fetch('/',{
+				method: 'GET',
+			}).then(res=>{
+				if(res.ok){
+					return res.json()
+				}else{
+					throw new Error(res.status)
+				}
+			},() =>new Error('reject'))
+				.then(res=>{
+					setSpinning(false)
+					console.log(res)
+				}).catch(error=>{
+					console.log(error.message)
+					setSpinning(false)
+				})
+		}
+	},[])
+	return <Spin spinning={spinning}>
 		<Breadcrumb>
-			<Breadcrumb.Item><Link>Home</Link></Breadcrumb.Item>
+			<Breadcrumb.Item><Link to='/mangement'>Home</Link></Breadcrumb.Item>
 			<Breadcrumb.Item>
 				Application Center
 			</Breadcrumb.Item>
 		</Breadcrumb>
 		<Form layout= 'horizontal'
+			ref={formref}
 			style={{
 				marginTop: '20px'
 			}}>
@@ -113,18 +158,22 @@ const ArticlePage = props => {
 				<Card.Grid style={gridStyle}>
 					<Row>
 						<Col span={24}>
-							<QuillEditor />
+							<div style={{paddingBottom: '2px'}}>
+								<QuillEditor ref={quillref}/>
+							</div>
 						</Col>
 					</Row>
 				</Card.Grid>
 				<Card.Grid style={gridStyle} hoverable={false}>		
 					<div style={{textAlign: 'center'}}>
-						<Button type='primary' htmlType='submit'>保存</Button>
+						<Button type='primary' htmlType='submit' onClick={()=>{
+							console.log(quillref.current.quill.getContents())
+						}}>保存</Button>
 					</div>
 				</Card.Grid>	
 			</Card>
 		</Form>
-	</>
+	</Spin>
 }
 
 export default ArticlePage

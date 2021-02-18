@@ -104,7 +104,7 @@ const Main = ()=> {
 				>
 					<Switch>
 						<Route path='/mangement' exact><TablePage/></Route>
-						<Route path='/mangement/article'><ArticlePage/></Route>
+						<Route path='/mangement/article' type='add'><ArticlePage/></Route>
 						<Route path='/mangement/chart'><ChartPage/></Route>
 					</Switch>
 				</Content>
