@@ -64,7 +64,7 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: './template.html',
 			chunks:['index'],
-			base: '/',
+			base: '/mangement',
 			hash:true
 		}),
 		new webpack.HotModuleReplacementPlugin()

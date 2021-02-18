@@ -1,9 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import { Table, Space, Input, Button } from 'antd'
 
 const { Search } = Input
-const TablePage = props=>{
-
+const TablePage = props => {
 
 	const columns=[
 		{

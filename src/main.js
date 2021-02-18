@@ -1,5 +1,5 @@
 import React,{ useState } from 'react'
-import { Layout, Menu, Avatar} from 'antd'
+import { Layout, Menu, Avatar, Modal} from 'antd'
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -22,10 +22,11 @@ const { SubMenu } = Menu
 
 const Main = ()=> {
 	const [collapsed,setCollapsed] = useState(true)
+	const []
 	const toggle = ()=>{
 		setCollapsed(!collapsed)
 	}
-	return <Router>
+	return <Router basename='/mangement'>
 		<Layout style={{minHeight: '100vh'}}>
 			<Sider trigger={null} collapsible collapsed={collapsed}>
 				<div style={{
@@ -35,7 +36,7 @@ const Main = ()=> {
 					justifyContent: 'center',
 					alignItems:'center'
 				}}>
-					<Avatar size={58} icon={<UserOutlined />} />
+					<Avatar size={58} icon={<UserOutlined />} style={{cursor: 'pointer'}}/>
 				</div>
 				<Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
 					<SubMenu
@@ -48,7 +49,7 @@ const Main = ()=> {
 						}
 					>
 						<Menu.Item key="1">
-							<Link to='/mangement'>表格</Link>
+							<Link to='/'>表格</Link>
 						</Menu.Item>
 					</SubMenu>
 					<SubMenu
@@ -61,7 +62,7 @@ const Main = ()=> {
 						}
 					>
 						<Menu.Item key="2">
-							<Link to='/mangement/chart'>图表</Link>
+							<Link to='/chart'>图表</Link>
 						</Menu.Item>
 					</SubMenu>
 					<SubMenu
@@ -74,7 +75,7 @@ const Main = ()=> {
 						}
 					>
 						<Menu.Item key="3">
-							<Link to='/mangement/article'>文章</Link>
+							<Link to='/article'>文章</Link>
 						</Menu.Item>
 					</SubMenu>
 				</Menu>
@@ -103,9 +104,9 @@ const Main = ()=> {
 					}}
 				>
 					<Switch>
-						<Route path='/mangement' exact><TablePage/></Route>
-						<Route path='/mangement/article' type='add'><ArticlePage/></Route>
-						<Route path='/mangement/chart'><ChartPage/></Route>
+						<Route path='/' exact><TablePage/></Route>
+						<Route path='/article' type='add'><ArticlePage/></Route>
+						<Route path='/chart'><ChartPage/></Route>
 					</Switch>
 				</Content>
 			</Layout>
