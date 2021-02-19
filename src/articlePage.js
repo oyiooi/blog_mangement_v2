@@ -1,5 +1,6 @@
 import React, {createRef,useEffect,useState} from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import { Form,Card, Breadcrumb,Input,Spin, DatePicker, Select, Row, Col, InputNumber, Button } from 'antd'
 import 	QuillEditor from './component/editor/' // 编辑器
 
@@ -53,9 +54,8 @@ const quillref = createRef()
 const formref = createRef()
 const gridStyle={width: '100%'}
 
-// eslint-disable-next-line no-unused-vars
-const ArticlePage = props => {
-	const {type} = props
+const ArticlePage = props =>{
+	const { type } = props
 	const [spinning, setSpinning] = useState(false)
 
 	// 提交
@@ -174,6 +174,10 @@ const ArticlePage = props => {
 			</Card>
 		</Form>
 	</Spin>
+}
+
+ArticlePage.propTypes = {
+	type: PropTypes.string.isRequired
 }
 
 export default ArticlePage

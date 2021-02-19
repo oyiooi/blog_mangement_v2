@@ -22,7 +22,6 @@ const { SubMenu } = Menu
 
 const Main = ()=> {
 	const [collapsed,setCollapsed] = useState(true)
-	const []
 	const toggle = ()=>{
 		setCollapsed(!collapsed)
 	}
