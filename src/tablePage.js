@@ -5,7 +5,7 @@ import { Table, Space, Input, Button } from 'antd'
 const { Search } = Input
 const TablePage = props => {
 
-	const columns=[
+	const columns = [
 		{
 			title: 'id',
 			dataIndex: 'id',
@@ -21,13 +21,13 @@ const TablePage = props => {
 		},{
 			title: ' 操作',
 			// eslint-disable-next-line react/display-name
-			render : ()=>(<Space size="middle">
+			render : () => (<Space size="middle">
 				<a>修改</a>
 				<a>删除</a>
 			</Space>)
 		}
 	]
-	const dataSource=[]
+	const dataSource = []
 
 	return <div>
 		<div style={{

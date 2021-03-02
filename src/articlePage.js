@@ -52,22 +52,22 @@ const classification = [
 ]
 const quillref = createRef()
 const formref = createRef()
-const gridStyle={width: '100%'}
+const gridStyle = {width: '100%'}
 
-const ArticlePage = props =>{
+const ArticlePage = props => {
 	const { type } = props
 	const [spinning, setSpinning] = useState(false)
 
 	// 提交
-	const submit = ()=>{
+	const submit = () => {
 		const { validateFields } = formref.current
 		const { getContents } = quillref.current.quill
 		validateFields()
-			.then(values=>{
+			.then(values => {
 				const text = getContents()
 				values.article = text
 				fetch('',{
-					method: type==='edit'?'POST':'PUT',
+					method: type === 'edit' ? 'POST' : 'PUT',
 					body: JSON.stringify(values)
 				})
 			})
@@ -75,22 +75,22 @@ const ArticlePage = props =>{
 	}
 
 	// componentDidMount
-	useEffect(()=>{
-		if(type==='edit'){
+	useEffect(() => {
+		if(type === 'edit'){
 			setSpinning(true)
 			fetch('/',{
 				method: 'GET',
-			}).then(res=>{
+			}).then(res => {
 				if(res.ok){
 					return res.json()
 				}else{
 					throw new Error(res.status)
 				}
-			},() =>new Error('reject'))
-				.then(res=>{
+			},() => new Error('reject'))
+				.then(res => {
 					setSpinning(false)
 					console.log(res)
-				}).catch(error=>{
+				}).catch(error => {
 					console.log(error.message)
 					setSpinning(false)
 				})
@@ -134,7 +134,7 @@ const ArticlePage = props =>{
 									optionLabelProp='label'
 								>
 									{
-										keywords.map(item=><Option  key={item.value} value={item.value}>{item.label}</Option>)
+										keywords.map(item => <Option  key={item.value} value={item.value}>{item.label}</Option>)
 									}	
 								</Select>             
 							</Form.Item>
@@ -143,7 +143,7 @@ const ArticlePage = props =>{
 							<Form.Item label={<div style={{width: '56px',display: 'flex',flexDirection: 'row',justifyContent:'space-around',alignItems:'center'}}><span>分</span><span>类</span></div>} name='classification' >
 								<Select>
 									{
-										classification.map(item=><Option  key={item.value} value={item.value}>{item.label}</Option>)
+										classification.map(item => <Option  key={item.value} value={item.value}>{item.label}</Option>)
 									}
 								</Select>                           
 							</Form.Item>
@@ -166,7 +166,7 @@ const ArticlePage = props =>{
 				</Card.Grid>
 				<Card.Grid style={gridStyle} hoverable={false}>		
 					<div style={{textAlign: 'center'}}>
-						<Button type='primary' htmlType='submit' onClick={()=>{
+						<Button type='primary' htmlType='submit' onClick={() => {
 							console.log(quillref.current.quill.getContents())
 						}}>保存</Button>
 					</div>

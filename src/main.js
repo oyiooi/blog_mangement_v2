@@ -20,9 +20,9 @@ import 'antd/dist/antd.css'
 const { Header, Sider, Content} = Layout 
 const { SubMenu } = Menu
 
-const Main = ()=> {
+const Main = () => {
 	const [collapsed,setCollapsed] = useState(true)
-	const toggle = ()=>{
+	const toggle = () => {
 		setCollapsed(!collapsed)
 	}
 	return <Router basename='/mangement'>

@@ -9,14 +9,14 @@ const ChartPage = props => {
 			height: '300px',
 			backgroundColor: 'gray'
 		}}
-		onDrop={e=>{
+		onDrop={e => {
 			e.preventDefault()
 			console.log('dddrops')
 			setS(true)
 		}}
-		onDragOver={e=>e.preventDefault()}
+		onDragOver={e => e.preventDefault()}
 	><div
-			onDragStart={e=>{e.dataTransfer.dropEffect = 'copy'}}
+			onDragStart={e => {e.dataTransfer.dropEffect = 'copy'}}
 			draggable='true'
 		>SJAFLSDFKASKDF</div>
 	</div>
